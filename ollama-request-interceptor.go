@@ -16,7 +16,7 @@ import (
 
 const (
 	listenAddr = ":11435"            // Localhost port exposed to clients to receive requests.
-	targetURL  = "http://host:11434" // Change this to actual local ollama server base url
+	targetURL  = "http://localhost:11434" // Change this to actual local ollama server base url
 	logDir     = "logs"
 )
 
