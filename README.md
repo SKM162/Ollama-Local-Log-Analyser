@@ -20,11 +20,6 @@ pip install streamlit
 
 ### 1. Clone the Repository
 
-```bash
-git clone https://github.com/yourusername/ollama-interceptor.git
-cd ollama-interceptor
-```
-
 ### 2. Set Up the Interceptor (Go)
 
 Edit the `ollama-request-interceptor.go` file:
@@ -65,46 +60,9 @@ streamlit run olla.py
 
 ---
 
-## 📁 Log Format (Expected)
-
-Each log file must contain:
-
-* Request metadata (timestamp, path, body)
-* Streamed response tokens (with timestamps)
-* Final metadata (duration, token count, stop reason, etc.)
-
-These are automatically formatted when using the Go interceptor script.
-
----
-
-## ✅ Features
-
-* Transparent proxy for redirecting and logging Ollama API calls
-* Automatic log file creation per request
-* Streamlit-based UI for browsing, comparing, and analyzing:
-
-  * Prompts
-  * Streamed responses (aggregated as text)
-  * Token-level timing
-  * Total generation duration
-
----
-
 ## 📌 Notes
 
 * Make sure the client app is configured to point to the proxy (e.g., `http://localhost:11435`) **instead of** directly to Ollama.
 * The proxy will forward the request and respond transparently, while logging everything in between.
-
----
-
-## 🧑‍💻 Author
-
-Maintained by \[Your Name].
-
----
-
-## 🛪️ License
-
-MIT License
 
   
