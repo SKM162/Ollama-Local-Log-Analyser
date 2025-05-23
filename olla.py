@@ -111,7 +111,7 @@ st.sidebar.title("🧠 Ollama Agent Log Viewer")
 
 with st.sidebar.expander("📁 Select Log folder path"):
     st.markdown("### Choose Log folder path:")
-    preset_dirs = ["../ollama-proxy/logs", "../ollama-proxy/oldlogs"]
+    preset_dirs = ["./logs"]
     log_dir = st.selectbox("Preset log folders", preset_dirs)
     custom_dir = st.text_input("Or enter custom log folder path", "")
 
