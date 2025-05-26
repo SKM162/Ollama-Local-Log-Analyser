@@ -32,6 +32,6 @@ disown
 
 echo "Interceptor started with:"
 echo "  Target URL : $TARGET_URL"
-echo "  Logs Dir   : $LOGS_DIR"
+echo "  Log Dir   : $LOGS_DIR"
 echo "  Listen Addr: $LISTEN_ADDR"
 echo "  Logs written to interceptor.out"

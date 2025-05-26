@@ -20,28 +20,24 @@ pip install streamlit
 
 ### 1. Clone the Repository
 
-### 2. Set Up the Interceptor (Go)
-
-Edit the `ollama-request-interceptor.go` file:
-
-#### 🔧 Configuration
-
-```go
-// Target Ollama server URL
-targetURL := "http://localhost:11434"  // Change if your Ollama server is hosted elsewhere
-
-// Address the proxy listens on
-listenAddr := ":11435"  // Clients should send requests to this port instead
-```
-
-### 3. Run the Interceptor
+### 2. Run the Interceptor
 
 ```bash
-go run ollama-request-interceptor.go
+sh run-interceptor.sh
+```
+defaults:
+Target URL : http://localhost:11434
+Log Dir   : ./logs
+Listen Addr: :11435
+
+or 
+
+```bash
+sh run-interceptor.sh -target "http://ai-test-3:11434" -log "./newlogs" -listen ":7800"
 ```
 
 * This starts a reverse proxy that logs requests/responses intended for the Ollama server.
-* It creates a `logs/` directory where logs are stored in a special format.
+* It creates a directory where logs are stored in a format the viewer understands.
 
 ---
 
@@ -49,7 +45,7 @@ go run ollama-request-interceptor.go
 
 Once you have logs:
 
-### 4. Launch the Viewer
+### 3. Launch the Viewer
 
 ```bash
 streamlit run olla.py
