@@ -135,15 +135,10 @@ def go_next():
     if st.session_state.selected_index < len(log_names) - 1:
         st.session_state.selected_index += 1
 
-def navigation_buttons(key_prefix=""):
-    col1, col2 = st.columns(2)
-    with col1:
-        st.button("⬅️ Previous", key=f"prev_{key_prefix}", use_container_width=True, on_click=go_prev)
-    with col2:
-        st.button("➡️ Next", key=f"next_{key_prefix}", use_container_width=True, on_click=go_next)
+col1, col2 = st.sidebar.columns(2)
+col1.button("⬅️ Previous", key=f"prev", use_container_width=True, on_click=go_prev)
+col2.button("➡️ Next", key=f"next", use_container_width=True, on_click=go_next)
 
-# --- Place navigation above table
-navigation_buttons("top")
 
 # Search feature
 def log_matches_search(log_data, query):
@@ -166,18 +161,15 @@ if "clear_search" not in st.session_state:
     st.session_state.clear_search = False
 
 # --- Step 2: UI
-st.sidebar.markdown("### 🔍 Search in logs:")
-
-search_col, clear_col = st.sidebar.columns([5, 1])
+search_col, clear_col = st.sidebar.columns([5, 1], vertical_alignment="bottom")
 
 with search_col:
-    search_query = st.text_input("🔍 Search logs", value=st.session_state.search_box, key="search_box", label_visibility="hidden")
+    search_query = st.text_input("## 🔍 Search logs", value=st.session_state.search_box, key="search_box")
 
 def clear_search():
     st.session_state.search_box = ""
 
 with clear_col:
-    st.markdown("###")
     st.button("❌", help="Clear search", on_click=clear_search)
 
 # --- Step 3: After UI
@@ -283,6 +275,3 @@ try:
 
 except Exception as e:
     st.error(f"❌ Error parsing {fname}: {e}")
-
-# --- Navigation below table
-navigation_buttons("bottom")
