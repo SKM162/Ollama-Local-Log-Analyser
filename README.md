@@ -64,5 +64,3 @@ streamlit run olla.py
 
 * Make sure the client app is configured to point to the proxy (e.g., `http://localhost:11435`) **instead of** directly to Ollama.
 * The proxy will forward the request and respond transparently, while logging everything in between.
-
-  

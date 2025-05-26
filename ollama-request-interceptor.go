@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -14,11 +15,18 @@ import (
 	"time"
 )
 
-const (
-	listenAddr = ":11435"            // Localhost port exposed to clients to receive requests.
-	targetURL  = "http://localhost:11434" // Change this to actual local ollama server base url
-	logDir     = "logs"
+var (
+	targetURL string
+	logDir   string
+	listenAddr string
 )
+
+func init() {
+	// Define flags with default values
+	flag.StringVar(&targetURL, "target", "http://localhost:11434", "Target Ollama Base URL to forward the request to after logging")
+	flag.StringVar(&logDir, "log", "./logs", "Directory path to save the logs")
+	flag.StringVar(&listenAddr, "listen", ":11435", "localhost Port to listen for requests to be logged (e.g. :11435)")
+}
 
 var reqID int64
 
@@ -43,9 +51,20 @@ type LoggedResponse struct {
 }
 
 func main() {
+	flag.Parse()
+
+	fmt.Printf("Using target URL: %s\n", targetURL)
+	fmt.Printf("Logging to directory: %s\n", logDir)
+	fmt.Printf("Listening on address: %s\n", listenAddr)
+
 	_ = os.Unsetenv("HTTP_PROXY")
 	_ = os.Unsetenv("HTTPS_PROXY")
-	_ = os.MkdirAll(logDir, 0755)
+
+	// Ensure logs directory exists
+	err := os.MkdirAll(logDir, os.ModePerm)
+	if err != nil {
+		log.Fatalf("Failed to create logs directory: %v", err)
+	}
 
 	http.HandleFunc("/", handleProxy)
 	log.Printf("Proxy started: %s → %s", listenAddr, targetURL)
